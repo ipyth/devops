@@ -1,0 +1,76 @@
+{% extends "devops/base.html" %}
+
+{% block title %}Spruce Site Index Page.{% endblock %}
+
+{% block content %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<h2 class="page-header">Overview</h2>
+<!--
+	<form class="form-inline">
+		<div class="form-group">
+			<label for="post_hostname">Name</label>
+			<input type="text" class="form-control" id="post_hostname" placeholder="Email">
+		</div>
+		<div class="form-group">
+			<label for="post_ip">IP</label>
+			<input type="text" class="form-control" id="post_ip" placeholder="xxx.xxx.xxx.xxx">
+		</div>
+		<div class="form-group">
+			<label for="post_os">OS Type</label>
+			<input type="text" class="form-control" id="post_os" placeholder="CentOS">
+		</div>
+		<div class="form-group">
+			<label for="post_hosttype">Host Type</label>
+			<select name="services" class="form-control" id="post_hosttype">
+				<option value="Aliyun">Aliyun</option>
+				<option value="ECS">ECS</option>
+				<option value="PC">PC</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="sr-only" for="post_services">Services</label>
+			<select name="services" class="form-control" id="post_ip">
+				<option value="Nginx">Nginx</option>
+				<option value="PHP">PHP</option>
+				<option value="Node.js">Node.js</option>
+				<option value="MySQL">MySQL</option>
+				<option value="MongoDB">MongoDB</option>
+				<option value="Redis">Redis</option>
+			</select>
+		</div>
+		<button type="submit" class="btn btn-default">Search</button>
+	</form>
+-->
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<tr>
+				<th>Num</th>
+				<th>Host Name</th>
+				<th>IP Address</th>
+				<th>Host Type</th>
+				<th>OS Type</th>
+				<th>Services</th>
+				<th>Notes</th>
+			</tr>
+			{% for host in host_list %}
+				<tr>
+					<td>{{ forloop.counter }}</td>
+					<td>{{ host.hostname }}</td>
+					<td>{{ host.ip }}</td>
+					<td>{{ host.type }}</td>
+					<td>{{ host.os }}</td>
+					<td>
+						{% for service in host.services.all %}
+							{% if forloop.last %}
+								{{ service }}
+							{% else %}
+								{{ service }},
+							{% endif %}
+						{% endfor %}
+					</td>
+					<td>{{ host.note }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
